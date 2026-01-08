@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Konsolen-Sammlung</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --bg: #0f1220;
+    --card: #171a2b;
+    --accent: #4f8cff;
+    --owned: #4caf50;
+    --text: #eaeaf0;
+    --muted: #9aa0b3;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #0f1220, #1a1f3a);
+    color: var(--text);
+}
+
+header {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+header p { color: var(--muted); }
+
+#stats {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+#stats span {
+    background: var(--card);
+    padding: 10px 16px;
+    border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    font-size: 0.9rem;
+}
+
+.progress {
+    margin: 20px auto 0;
+    max-width: 500px;
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4caf50, #4f8cff);
+    transition: width 0.4s ease;
+}
+
+section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 10px;
+}
+
+ul { list-style: none; padding: 0; margin: 0; }
+
+li {
+    padding: 6px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li.owned { color: var(--owned); font-weight: 600; }
+
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.counter button {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.counter button:hover { opacity: 0.85; }
+
+.counter .count {
+    min-width: 14px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎮 Konsolen-Sammlung</h1>
+    <p>Modell-Varianten · Ohne Special Editions · Menge einstellbar</p>
+
+    <div id="stats">
+        <span>📦 Gesamt: <strong id="total">0</strong></span>
+        <span>✅ Besitz: <strong id="ownedCount">0</strong></span>
+        <span>❌ Fehlen: <strong id="missing">0</strong></span>
+        <span>📊 Fortschritt: <strong id="percent">0%</strong></span>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</header>
+
+<section class="grid">
+
+<div class="card">
+<h2>PlayStation – Heimkonsolen</h2>
+<ul>
+<li>PS1 <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS One <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS2 <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
+<li>PS2 Slim <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PSX (DESR) <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS3 Fat (PS2) <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS3 Fat <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS3 Slim <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
+<li>PS3 Super Slim <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
+<li>PS4 <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS4 Slim <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS4 Pro <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS5 <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li>PS5 Slim <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
+<li>PS5 Pro <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+</ul>
+</div>
+
+</section>
+
+<footer>
+© 2026 · Konsolen-Sammlung
+</footer>
+
+<script>
+const items = document.querySelectorAll("li");
+
+items.forEach((item, index) => {
+    const countEl = item.querySelector(".count");
+    let count = parseInt(localStorage.getItem("count_" + index)) ?? parseInt(countEl.textContent);
+
+    updateItem();
+
+    item.querySelector(".plus").addEventListener("click", e => {
+        e.stopPropagation();
+        count++;
+        updateItem();
+    });
+
+    item.querySelector(".minus").addEventListener("click", e => {
+        e.stopPropagation();
+        if (count > 0) count--;
+        updateItem();
+    });
+
+    function updateItem() {
+        countEl.textContent = count;
+        localStorage.setItem("count_" + index, count);
+        item.classList.toggle("owned", count > 0);
+        updateStats();
+    }
+});
+
+function updateStats() {
+    const total = items.length;
+    const owned = document.querySelectorAll("li.owned").length;
+    const missing = total - owned;
+    const percent = Math.round((owned / total) * 100);
+
+    document.getElementById("total").textContent = total;
+    document.getElementById("ownedCount").textContent = owned;
+    document.getElementById("missing").textContent = missing;
+    document.getElementById("percent").textContent = percent + "%";
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+updateStats();
+</script>
+
+</body>
+</html>
