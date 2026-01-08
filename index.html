@@ -4,45 +4,36 @@
 <meta charset="UTF-8">
 <title>Konsolen-Sammlung</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 :root {
-    --bg: #0f1220;
-    --card: #171a2b;
-    --accent: #4f8cff;
-    --owned: #4caf50;
-    --text: #eaeaf0;
-    --muted: #9aa0b3;
+    --bg:#0f1220; --card:#171a2b; --accent:#4f8cff;
+    --owned:#4caf50; --text:#eaeaf0; --muted:#9aa0b3;
 }
-
-* { box-sizing: border-box; }
-
-body { margin:0; font-family: "Segoe UI", system-ui, sans-serif; background: linear-gradient(135deg,#0f1220,#1a1f3a); color: var(--text); }
-header { padding: 40px 20px; text-align: center; }
-header h1 { font-size: 2.5rem; margin-bottom:10px; }
-header p { color: var(--muted); }
-.stats { margin-top:15px; font-size:1.1rem; }
-.controls { margin:25px auto; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
-.controls input, .controls select { background: var(--card); border:none; color:var(--text); padding:10px 14px; border-radius:10px; font-size:0.9rem; outline:none; }
-.controls input { width:220px; }
-section { max-width:1200px; margin:auto; padding:20px; }
-.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-.card { background: var(--card); border-radius:16px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,0.35);}
-.card h2 { font-size:1.3rem; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px; }
-ul { list-style:none; padding:0; margin:0; }
-li { padding:6px 0; display:flex; justify-content:space-between; align-items:center; }
-li.owned { color:var(--owned); font-weight:600; }
-.counter { display:flex; gap:6px; align-items:center; }
-.counter button { background: var(--accent); border:none; color:#fff; width:26px; height:26px; border-radius:50%; cursor:pointer; font-weight:bold; }
-.counter span { min-width:18px; text-align:center; }
-footer { text-align:center; padding:30px; color:var(--muted);}
-#loginForm { display:flex; flex-direction:column; gap:10px; justify-content:center; align-items:center; margin-top:10px; display:none;}
-#loginForm input { width:200px; text-align:center; }
-#loginForm button { background: var(--accent); border:none; color:#fff; padding:8px 16px; border-radius:10px; cursor:pointer; }
-#showLoginBtn { background: var(--accent); border:none; color:#fff; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:0.85rem; margin-top:10px;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:linear-gradient(135deg,#0f1220,#1a1f3a);color:var(--text);}
+header{padding:40px 20px;text-align:center;}
+header h1{font-size:2.5rem;margin-bottom:10px;}
+header p{color:var(--muted);}
+.stats{margin-top:15px;font-size:1.1rem;}
+.controls{margin:25px auto;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.controls input,.controls select{background:var(--card);border:none;color:var(--text);padding:10px 14px;border-radius:10px;font-size:0.9rem;outline:none;}
+.controls input{width:220px;}
+section{max-width:1200px;margin:auto;padding:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.card{background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,0.35);}
+.card h2{font-size:1.3rem;margin-bottom:15px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px;}
+ul{list-style:none;padding:0;margin:0;}
+li{padding:6px 0;display:flex;justify-content:space-between;align-items:center;}
+li.owned{color:var(--owned);font-weight:600;}
+.counter{display:flex;gap:6px;align-items:center;}
+.counter button{background:var(--accent);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-weight:bold;}
+.counter span{min-width:18px;text-align:center;}
+footer{text-align:center;padding:30px;color:var(--muted);}
+#loginForm{display:flex;flex-direction:column;gap:10px;justify-content:center;align-items:center;margin-top:30px;}
+#loginForm input{width:200px;text-align:center;}
+#loginForm button{background:var(--accent);border:none;color:#fff;padding:8px 16px;border-radius:10px;cursor:pointer;}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -65,7 +56,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 
 <section class="grid">
 
-<!-- PLAYSTATION HEIMKONSOLEN -->
+<!-- PlayStation – Heimkonsolen -->
 <div class="card">
 <h2>PlayStation – Heimkonsolen</h2>
 <ul>
@@ -87,7 +78,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 </ul>
 </div>
 
-<!-- PLAYSTATION HANDHELDS -->
+<!-- PlayStation – Handhelds -->
 <div class="card">
 <h2>PlayStation – Handhelds</h2>
 <ul>
@@ -102,7 +93,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 </ul>
 </div>
 
-<!-- XBOX -->
+<!-- Xbox -->
 <div class="card">
 <h2>Xbox</h2>
 <ul>
@@ -118,7 +109,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 </ul>
 </div>
 
-<!-- NINTENDO HEIMKONSOLEN -->
+<!-- Nintendo – Heimkonsolen -->
 <div class="card">
 <h2>Nintendo – Heimkonsolen</h2>
 <ul>
@@ -137,7 +128,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 </ul>
 </div>
 
-<!-- NINTENDO HANDHELDS -->
+<!-- Nintendo – Handhelds -->
 <div class="card">
 <h2>Nintendo – Handhelds</h2>
 <ul>
@@ -161,35 +152,35 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 
 </section>
 
-<footer>
-© 2026 · Konsolen-Sammlung
-<br>
-<button id="showLoginBtn">Admin Login</button>
 <div id="loginForm">
-    <input type="email" id="email" placeholder="E-Mail">
-    <input type="password" id="password" placeholder="Passwort">
-    <button id="loginBtn">Login</button>
+<h3>Admin Login</h3>
+<input type="email" id="email" placeholder="E-Mail">
+<input type="password" id="password" placeholder="Passwort">
+<button id="loginBtn">Login</button>
 </div>
-</footer>
+
+<footer>© 2026 · Konsolen-Sammlung</footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
 <script>
+// ===== Firebase konfigurieren =====
 const firebaseConfig = {
-  apiKey: "AIzaSyCHB1dUFPSkY6COKoWf4WDgl1dfl-s36Wc",
-  authDomain: "yk4n-8c37b.firebaseapp.com",
-  databaseURL: "https://yk4n-8c37b-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "yk4n-8c37b",
-  storageBucket: "yk4n-8c37b.firebasestorage.app",
-  messagingSenderId: "912970091926",
-  appId: "1:912970091926:web:2e8a14bc0c1949905fa1b7"
+  apiKey: "DEIN_API_KEY",
+  authDomain: "DEIN_PROJEKT.firebaseapp.com",
+  databaseURL: "https://DEIN_PROJEKT.firebaseio.com",
+  projectId: "DEIN_PROJEKT",
+  storageBucket: "DEIN_PROJEKT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const auth = firebase.auth();
 
+// ===== Elemente =====
 const items = document.querySelectorAll("li[data-id]");
 const ownedEl = document.getElementById("ownedCount");
 const totalEl = document.getElementById("totalCount");
@@ -197,71 +188,72 @@ const search = document.getElementById("search");
 const filter = document.getElementById("filter");
 const loginForm = document.getElementById("loginForm");
 const loginBtn = document.getElementById("loginBtn");
-const showLoginBtn = document.getElementById("showLoginBtn");
 const emailInput = document.getElementById("email");
 const passInput = document.getElementById("password");
 
 totalEl.textContent = items.length;
 
-// Zeige/Verstecke Login
-showLoginBtn.onclick = () => {
-    loginForm.style.display = loginForm.style.display === "flex" ? "none" : "flex";
-};
-
-// Login-Funktion
-loginBtn.onclick = () => {
-    const email = emailInput.value;
-    const pass = passInput.value;
-    auth.signInWithEmailAndPassword(email, pass)
-    .then(() => {
-        alert("Login erfolgreich! Du kannst jetzt Änderungen speichern.");
-        loginForm.style.display = "none";
-        enableEditing();
-    })
-    .catch(err => alert("Fehler: " + err.message));
-};
-
-// Aktiviere Zähler nur für angemeldeten User
-function enableEditing(){
-    items.forEach(item => {
-        const id = item.dataset.id;
-        let count = 0;
-        const counter = document.createElement("div");
-        counter.className = "counter";
-
-        const minus = document.createElement("button"); minus.textContent="−";
-        const plus = document.createElement("button"); plus.textContent="+";
-        const span = document.createElement("span"); span.textContent=count;
-
-        counter.append(minus, span, plus);
-        item.appendChild(counter);
-
-        function update() {
-            span.textContent = count;
-            item.classList.toggle("owned", count>0);
-            updateStats();
-            db.ref("counts/"+id).set(count); // speichert nur für Admin
-        }
-
-        minus.onclick = ()=>{ if(count>0) count--; update(); };
-        plus.onclick = ()=>{ count++; update(); };
-    });
-}
-
-// Lade alle Daten aus Firebase
+// ===== Gast kann nur sehen =====
 db.ref("counts").on("value", snapshot => {
     const data = snapshot.val() || {};
     items.forEach(item=>{
         const id = item.dataset.id;
-        if(data[id]!==undefined){
-            let counterSpan = item.querySelector(".counter span");
-            if(counterSpan) counterSpan.textContent = data[id];
-            item.classList.toggle("owned", data[id]>0);
+        let count = data[id] || 0;
+        item.classList.toggle("owned", count>0);
+        let span = item.querySelector(".counter span");
+        if(span) span.textContent = count;
+        else {
+            span = document.createElement("span");
+            span.textContent = count;
+            const c = document.createElement("div");
+            c.className="counter";
+            c.appendChild(span);
+            item.appendChild(c);
         }
     });
     updateStats();
 });
 
+// ===== Admin Login =====
+loginBtn.onclick = () => {
+    const email = emailInput.value;
+    const pass = passInput.value;
+    auth.signInWithEmailAndPassword(email,pass)
+    .then(()=> {
+        alert("Login erfolgreich! Du kannst jetzt Zahlen ändern.");
+        loginForm.style.display="none";
+        enableEditing();
+    })
+    .catch(err=> alert("Fehler: "+err.message));
+};
+
+// ===== Admin kann Zahlen ändern =====
+function enableEditing(){
+    items.forEach(item=>{
+        const id=item.dataset.id;
+        let count = 0;
+        const counter = document.createElement("div");
+        counter.className="counter";
+
+        const minus = document.createElement("button"); minus.textContent="−";
+        const plus = document.createElement("button"); plus.textContent="+";
+        const span = document.createElement("span"); span.textContent=count;
+
+        counter.append(minus,span,plus);
+        item.appendChild(counter);
+
+        function update(){
+            span.textContent=count;
+            item.classList.toggle("owned",count>0);
+            db.ref("counts/"+id).set(count);
+            updateStats();
+        }
+        minus.onclick=()=>{if(count>0)count--;update();};
+        plus.onclick=()=>{count++;update();};
+    });
+}
+
+// ===== Fortschritt =====
 function updateStats(){
     let owned=0;
     items.forEach(i=>{
@@ -271,22 +263,20 @@ function updateStats(){
     ownedEl.textContent=owned;
 }
 
-// Suche + Filter
-function applyFilters(){
-    const q=search.value.toLowerCase();
-    const f=filter.value;
-    items.forEach(i=>{
-        const text=i.textContent.toLowerCase();
-        const owned=i.classList.contains("owned");
-        let show=text.includes(q);
-        if(f==="owned") show&=owned;
-        if(f==="missing") show&=!owned;
-        i.style.display=show?"flex":"none";
-    });
-}
+// ===== Suche + Filter =====
+const firebaseConfig = {
+  apiKey: "AIzaSyCHB1dUFPSkY6COKoWf4WDgl1dfl-s36Wc",
+  authDomain: "yk4n-8c37b.firebaseapp.com",
+  databaseURL: "https://yk4n-8c37b-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "yk4n-8c37b",
+  storageBucket: "yk4n-8c37b.firebasestorage.app",
+  messagingSenderId: "912970091926",
+  appId: "1:912970091926:web:2e8a14bc0c1949905fa1b7"
+};
+
 search.oninput=applyFilters;
 filter.onchange=applyFilters;
 </script>
+
 </body>
 </html>
-
