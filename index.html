@@ -29,39 +29,41 @@ header {
     text-align: center;
 }
 
-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-header p { color: var(--muted); }
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
 
-#stats {
-    margin-top: 20px;
+header p {
+    color: var(--muted);
+}
+
+.stats {
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+.controls {
+    margin: 25px auto;
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
-#stats span {
+.controls input,
+.controls select {
     background: var(--card);
-    padding: 10px 16px;
-    border-radius: 999px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    border: none;
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 10px;
     font-size: 0.9rem;
+    outline: none;
 }
 
-.progress {
-    margin: 20px auto 0;
-    max-width: 500px;
-    height: 10px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #4caf50, #4f8cff);
-    transition: width 0.4s ease;
+.controls input {
+    width: 220px;
 }
 
 section {
@@ -90,7 +92,11 @@ section {
     padding-bottom: 10px;
 }
 
-ul { list-style: none; padding: 0; margin: 0; }
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
 li {
     padding: 6px 0;
@@ -99,38 +105,37 @@ li {
     align-items: center;
 }
 
-li.owned { color: var(--owned); font-weight: 600; }
+li.owned {
+    color: var(--owned);
+    font-weight: 600;
+}
 
 .counter {
     display: flex;
-    align-items: center;
     gap: 6px;
+    align-items: center;
 }
 
 .counter button {
     background: var(--accent);
     border: none;
     color: #fff;
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 14px;
+    font-weight: bold;
 }
 
-.counter button:hover { opacity: 0.85; }
-
-.counter .count {
-    min-width: 14px;
+.counter span {
+    min-width: 18px;
     text-align: center;
-    font-size: 0.85rem;
 }
 
 footer {
     text-align: center;
-    padding: 30px 20px;
+    padding: 30px;
     color: var(--muted);
-    font-size: 0.9rem;
 }
 </style>
 </head>
@@ -138,19 +143,20 @@ footer {
 <body>
 
 <header>
-    <h1>🎮 Konsolen-Sammlung</h1>
-    <p>Modell-Varianten · Ohne Special Editions · Menge einstellbar</p>
+<h1>🎮 Konsolen-Sammlung</h1>
+<p>Alle Modell-Varianten · Besitz zählbar · Ohne Special Editions</p>
+<div class="stats">
+    <span id="ownedCount">0</span> / <span id="totalCount">0</span> Modelle im Besitz
+</div>
 
-    <div id="stats">
-        <span>📦 Gesamt: <strong id="total">0</strong></span>
-        <span>✅ Besitz: <strong id="ownedCount">0</strong></span>
-        <span>❌ Fehlen: <strong id="missing">0</strong></span>
-        <span>📊 Fortschritt: <strong id="percent">0%</strong></span>
-    </div>
-
-    <div class="progress">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+<div class="controls">
+    <input id="search" type="text" placeholder="🔍 Konsole suchen…">
+    <select id="filter">
+        <option value="all">Alle</option>
+        <option value="owned">Im Besitz</option>
+        <option value="missing">Fehlend</option>
+    </select>
+</div>
 </header>
 
 <section class="grid">
@@ -158,21 +164,89 @@ footer {
 <div class="card">
 <h2>PlayStation – Heimkonsolen</h2>
 <ul>
-<li>PS1 <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS One <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS2 <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
-<li>PS2 Slim <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PSX (DESR) <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS3 Fat (PS2) <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS3 Fat <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS3 Slim <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
-<li>PS3 Super Slim <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
-<li>PS4 <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS4 Slim <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS4 Pro <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS5 <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
-<li>PS5 Slim <div class="counter"><button class="minus">−</button><span class="count">1</span><button class="plus">+</button></div></li>
-<li>PS5 Pro <div class="counter"><button class="minus">−</button><span class="count">0</span><button class="plus">+</button></div></li>
+<li data-id="ps1">PS1</li>
+<li data-id="psone">PS One</li>
+<li data-id="ps2">PS2</li>
+<li data-id="ps2s">PS2 Slim</li>
+<li data-id="psx">PSX (DESR)</li>
+<li data-id="ps3f">PS3 Fat</li>
+<li data-id="ps3fs">PS3 Fat (PS2)</li>
+<li data-id="ps3s">PS3 Slim</li>
+<li data-id="ps3ss">PS3 Super Slim</li>
+<li data-id="ps4">PS4</li>
+<li data-id="ps4s">PS4 Slim</li>
+<li data-id="ps4p">PS4 Pro</li>
+<li data-id="ps5">PS5</li>
+<li data-id="ps5s">PS5 Slim</li>
+<li data-id="ps5p">PS5 Pro</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>PlayStation – Handhelds</h2>
+<ul>
+<li data-id="psp1">PSP 1000</li>
+<li data-id="psp2">PSP 2000</li>
+<li data-id="psp3">PSP 3000</li>
+<li data-id="pspstreet">PSP Street</li>
+<li data-id="pspgo">PSP Go</li>
+<li data-id="vita1">PS Vita 1000</li>
+<li data-id="vita2">PS Vita 2000</li>
+<li data-id="vitatv">PS Vita TV</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Xbox</h2>
+<ul>
+<li data-id="xbox">Xbox</li>
+<li data-id="x360">Xbox 360</li>
+<li data-id="x360s">Xbox 360 Slim</li>
+<li data-id="x360e">Xbox 360 E</li>
+<li data-id="one">Xbox One</li>
+<li data-id="ones">Xbox One S</li>
+<li data-id="onex">Xbox One X</li>
+<li data-id="seriess">Xbox Series S</li>
+<li data-id="seriesx">Xbox Series X</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Nintendo – Heimkonsolen</h2>
+<ul>
+<li data-id="nes">NES</li>
+<li data-id="snes">SNES</li>
+<li data-id="n64">Nintendo 64</li>
+<li data-id="gc">GameCube</li>
+<li data-id="wii">Wii</li>
+<li data-id="wiif">Wii Family Edition</li>
+<li data-id="wiim">Wii Mini</li>
+<li data-id="wiiu">Wii U</li>
+<li data-id="switch">Switch</li>
+<li data-id="switchl">Switch Lite</li>
+<li data-id="switcho">Switch OLED</li>
+<li data-id="switch2">Switch 2</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Nintendo – Handhelds</h2>
+<ul>
+<li data-id="gb">Game Boy</li>
+<li data-id="gbp">Game Boy Pocket</li>
+<li data-id="gbc">Game Boy Color</li>
+<li data-id="gba">Game Boy Advance</li>
+<li data-id="gbasp">GBA SP</li>
+<li data-id="ds">DS</li>
+<li data-id="dsl">DS Lite</li>
+<li data-id="dsi">DSi</li>
+<li data-id="dsixl">DSi XL</li>
+<li data-id="3ds">3DS</li>
+<li data-id="3dsxl">3DS XL</li>
+<li data-id="2ds">2DS</li>
+<li data-id="n2dsxl">New 2DS XL</li>
+<li data-id="n3ds">New 3DS</li>
+<li data-id="n3dsxl">New 3DS XL</li>
 </ul>
 </div>
 
@@ -183,46 +257,72 @@ footer {
 </footer>
 
 <script>
-const items = document.querySelectorAll("li");
+const items = document.querySelectorAll("li[data-id]");
+const ownedEl = document.getElementById("ownedCount");
+const totalEl = document.getElementById("totalCount");
+const search = document.getElementById("search");
+const filter = document.getElementById("filter");
 
-items.forEach((item, index) => {
-    const countEl = item.querySelector(".count");
-    let count = parseInt(localStorage.getItem("count_" + index)) ?? parseInt(countEl.textContent);
+totalEl.textContent = items.length;
 
-    updateItem();
+items.forEach(item => {
+    const id = item.dataset.id;
+    let count = parseInt(localStorage.getItem(id)) || 0;
 
-    item.querySelector(".plus").addEventListener("click", e => {
-        e.stopPropagation();
-        count++;
-        updateItem();
-    });
+    const counter = document.createElement("div");
+    counter.className = "counter";
 
-    item.querySelector(".minus").addEventListener("click", e => {
-        e.stopPropagation();
-        if (count > 0) count--;
-        updateItem();
-    });
+    const minus = document.createElement("button");
+    minus.textContent = "−";
 
-    function updateItem() {
-        countEl.textContent = count;
-        localStorage.setItem("count_" + index, count);
+    const plus = document.createElement("button");
+    plus.textContent = "+";
+
+    const span = document.createElement("span");
+    span.textContent = count;
+
+    counter.append(minus, span, plus);
+    item.appendChild(counter);
+
+    function update() {
+        span.textContent = count;
+        localStorage.setItem(id, count);
         item.classList.toggle("owned", count > 0);
         updateStats();
     }
+
+    minus.onclick = () => { if (count > 0) count--; update(); };
+    plus.onclick = () => { count++; update(); };
+
+    update();
 });
 
 function updateStats() {
-    const total = items.length;
-    const owned = document.querySelectorAll("li.owned").length;
-    const missing = total - owned;
-    const percent = Math.round((owned / total) * 100);
-
-    document.getElementById("total").textContent = total;
-    document.getElementById("ownedCount").textContent = owned;
-    document.getElementById("missing").textContent = missing;
-    document.getElementById("percent").textContent = percent + "%";
-    document.getElementById("progressBar").style.width = percent + "%";
+    let owned = 0;
+    items.forEach(i => {
+        if (parseInt(localStorage.getItem(i.dataset.id)) > 0) owned++;
+    });
+    ownedEl.textContent = owned;
 }
+
+function applyFilters() {
+    const q = search.value.toLowerCase();
+    const f = filter.value;
+
+    items.forEach(i => {
+        const text = i.textContent.toLowerCase();
+        const owned = i.classList.contains("owned");
+
+        let show = text.includes(q);
+        if (f === "owned") show &= owned;
+        if (f === "missing") show &= !owned;
+
+        i.style.display = show ? "flex" : "none";
+    });
+}
+
+search.oninput = applyFilters;
+filter.onchange = applyFilters;
 
 updateStats();
 </script>
