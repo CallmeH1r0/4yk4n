@@ -34,9 +34,7 @@ header h1 {
     margin-bottom: 10px;
 }
 
-header p {
-    color: var(--muted);
-}
+header p { color: var(--muted); }
 
 .stats {
     margin-top: 15px;
@@ -62,59 +60,23 @@ header p {
     outline: none;
 }
 
-.controls input {
-    width: 220px;
-}
+.controls input { width: 220px; }
 
-section {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
+section { max-width: 1200px; margin: auto; padding: 20px; }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 
-.card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-}
+.card { background: var(--card); border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
 
-.card h2 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding-bottom: 10px;
-}
+.card h2 { font-size: 1.3rem; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; }
 
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+ul { list-style: none; padding: 0; margin: 0; }
 
-li {
-    padding: 6px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+li { padding: 6px 0; display: flex; justify-content: space-between; align-items: center; }
 
-li.owned {
-    color: var(--owned);
-    font-weight: 600;
-}
+li.owned { color: var(--owned); font-weight: 600; }
 
-.counter {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
+.counter { display: flex; gap: 6px; align-items: center; }
 
 .counter button {
     background: var(--accent);
@@ -127,16 +89,9 @@ li.owned {
     font-weight: bold;
 }
 
-.counter span {
-    min-width: 18px;
-    text-align: center;
-}
+.counter span { min-width: 18px; text-align: center; }
 
-footer {
-    text-align: center;
-    padding: 30px;
-    color: var(--muted);
-}
+footer { text-align: center; padding: 30px; color: var(--muted); }
 </style>
 </head>
 
@@ -161,6 +116,7 @@ footer {
 
 <section class="grid">
 
+<!-- PlayStation Heimkonsolen -->
 <div class="card">
 <h2>PlayStation – Heimkonsolen</h2>
 <ul>
@@ -182,6 +138,7 @@ footer {
 </ul>
 </div>
 
+<!-- PlayStation Handhelds -->
 <div class="card">
 <h2>PlayStation – Handhelds</h2>
 <ul>
@@ -196,6 +153,7 @@ footer {
 </ul>
 </div>
 
+<!-- Xbox -->
 <div class="card">
 <h2>Xbox</h2>
 <ul>
@@ -211,6 +169,7 @@ footer {
 </ul>
 </div>
 
+<!-- Nintendo Heimkonsolen -->
 <div class="card">
 <h2>Nintendo – Heimkonsolen</h2>
 <ul>
@@ -229,6 +188,7 @@ footer {
 </ul>
 </div>
 
+<!-- Nintendo Handhelds -->
 <div class="card">
 <h2>Nintendo – Handhelds</h2>
 <ul>
@@ -252,80 +212,9 @@ footer {
 
 </section>
 
-<footer>
-© 2026 · Konsolen-Sammlung
-</footer>
+<footer>© 2026 · Konsolen-Sammlung</footer>
 
-<script>
-const items = document.querySelectorAll("li[data-id]");
-const ownedEl = document.getElementById("ownedCount");
-const totalEl = document.getElementById("totalCount");
-const search = document.getElementById("search");
-const filter = document.getElementById("filter");
-
-totalEl.textContent = items.length;
-
-items.forEach(item => {
-    const id = item.dataset.id;
-    let count = parseInt(localStorage.getItem(id)) || 0;
-
-    const counter = document.createElement("div");
-    counter.className = "counter";
-
-    const minus = document.createElement("button");
-    minus.textContent = "−";
-
-    const plus = document.createElement("button");
-    plus.textContent = "+";
-
-    const span = document.createElement("span");
-    span.textContent = count;
-
-    counter.append(minus, span, plus);
-    item.appendChild(counter);
-
-    function update() {
-        span.textContent = count;
-        localStorage.setItem(id, count);
-        item.classList.toggle("owned", count > 0);
-        updateStats();
-    }
-
-    minus.onclick = () => { if (count > 0) count--; update(); };
-    plus.onclick = () => { count++; update(); };
-
-    update();
-});
-
-function updateStats() {
-    let owned = 0;
-    items.forEach(i => {
-        if (parseInt(localStorage.getItem(i.dataset.id)) > 0) owned++;
-    });
-    ownedEl.textContent = owned;
-}
-
-function applyFilters() {
-    const q = search.value.toLowerCase();
-    const f = filter.value;
-
-    items.forEach(i => {
-        const text = i.textContent.toLowerCase();
-        const owned = i.classList.contains("owned");
-
-        let show = text.includes(q);
-        if (f === "owned") show &= owned;
-        if (f === "missing") show &= !owned;
-
-        i.style.display = show ? "flex" : "none";
-    });
-}
-
-search.oninput = applyFilters;
-filter.onchange = applyFilters;
-
-updateStats();
-</script>
+<!-- Haupt-Skript -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
@@ -342,7 +231,79 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+
+const items = document.querySelectorAll("li[data-id]");
+const ownedEl = document.getElementById("ownedCount");
+const totalEl = document.getElementById("totalCount");
+const search = document.getElementById("search");
+const filter = document.getElementById("filter");
+
+totalEl.textContent = items.length;
+
+// Zähler pro Item
+items.forEach(item => {
+    const id = item.dataset.id;
+    let count = 0;
+
+    const counter = document.createElement("div");
+    counter.className = "counter";
+
+    const minus = document.createElement("button"); minus.textContent="−";
+    const plus = document.createElement("button"); plus.textContent="+";
+    const span = document.createElement("span"); span.textContent=count;
+
+    counter.append(minus, span, plus);
+    item.appendChild(counter);
+
+    function update() {
+        span.textContent = count;
+        item.classList.toggle("owned", count>0);
+        updateStats();
+        db.ref("counts/"+id).set(count); // speichert in Firebase
+    }
+
+    minus.onclick = ()=>{ if(count>0) count--; update(); };
+    plus.onclick = ()=>{ count++; update(); };
+
+});
+
+// Lade alle Daten aus Firebase beim Start
+db.ref("counts").on("value", snapshot => {
+    const data = snapshot.val() || {};
+    items.forEach(item=>{
+        const id = item.dataset.id;
+        if(data[id]!==undefined){
+            item.querySelector(".counter span").textContent = data[id];
+            item.classList.toggle("owned", data[id]>0);
+        }
+    });
+    updateStats();
+});
+
+function updateStats(){
+    let owned=0;
+    items.forEach(i=>{
+        if(parseInt(i.querySelector(".counter span").textContent)>0) owned++;
+    });
+    ownedEl.textContent=owned;
+}
+
+// Suche + Filter
+function applyFilters(){
+    const q=search.value.toLowerCase();
+    const f=filter.value;
+    items.forEach(i=>{
+        const text=i.textContent.toLowerCase();
+        const owned=i.classList.contains("owned");
+        let show=text.includes(q);
+        if(f==="owned") show&=owned;
+        if(f==="missing") show&=!owned;
+        i.style.display=show?"flex":"none";
+    });
+}
+search.oninput=applyFilters;
+filter.onchange=applyFilters;
 </script>
+
 </body>
 </html>
-
