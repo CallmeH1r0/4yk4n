@@ -11,6 +11,7 @@
     --card: #171a2b;
     --accent: #4f8cff;
     --owned: #4caf50;
+    --repair: #ff8c00;
     --text: #eaeaf0;
     --muted: #9aa0b3;
 }
@@ -21,7 +22,10 @@ body { margin:0; font-family: "Segoe UI", system-ui, sans-serif; background: lin
 header { padding: 40px 20px; text-align: center; }
 header h1 { font-size: 2.5rem; margin-bottom:10px; }
 header p { color: var(--muted); }
-.stats { margin-top:15px; font-size:1.1rem; }
+.stats { margin-top:15px; font-size:1.1rem; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+.stats span { display:flex; align-items:center; gap:6px; }
+.dot-owned { width:10px; height:10px; border-radius:50%; background:var(--owned); display:inline-block; }
+.dot-repair { width:10px; height:10px; border-radius:50%; background:var(--repair); display:inline-block; }
 .controls { margin:25px auto; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
 .controls input, .controls select { background: var(--card); border:none; color:var(--text); padding:10px 14px; border-radius:10px; font-size:0.9rem; outline:none; }
 .controls input { width:220px; }
@@ -32,9 +36,46 @@ section { max-width:1200px; margin:auto; padding:20px; }
 ul { list-style:none; padding:0; margin:0; }
 li { padding:6px 0; display:flex; justify-content:space-between; align-items:center; }
 li.owned { color:var(--owned); font-weight:600; }
+li.repair { color:var(--repair); font-weight:600; }
+
+/* Reparatur-Badge */
+.repair-badge {
+    font-size:0.75rem;
+    font-weight:800;
+    color: var(--repair);
+    background: rgba(255,140,0,0.15);
+    border: 1px solid rgba(255,140,0,0.4);
+    border-radius:5px;
+    padding:1px 5px;
+    margin-right:6px;
+    letter-spacing:0.05em;
+}
+
 .counter { display:flex; gap:6px; align-items:center; }
 .counter button { background: var(--accent); border:none; color:#fff; width:26px; height:26px; border-radius:50%; cursor:pointer; font-weight:bold; }
 .counter span { min-width:18px; text-align:center; }
+
+/* Reparatur-Knopf (nur im Admin-Modus) */
+.btn-repair {
+    background: transparent !important;
+    border: 1px solid rgba(255,140,0,0.5) !important;
+    color: var(--repair) !important;
+    font-size:0.75rem !important;
+    width:26px !important;
+    height:26px !important;
+    border-radius:6px !important;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: background 0.2s;
+}
+.btn-repair.active {
+    background: rgba(255,140,0,0.25) !important;
+    border-color: var(--repair) !important;
+}
+.btn-repair:hover { background: rgba(255,140,0,0.15) !important; }
+
 footer { text-align:center; padding:30px; color:var(--muted);}
 #loginForm { display:flex; flex-direction:column; gap:10px; justify-content:center; align-items:center; margin:20px auto; max-width:200px; }
 #loginForm input { width:200px; text-align:center; }
@@ -49,7 +90,8 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 <p></p>
 
 <div class="stats">
-    <span id="ownedCount">0</span> / <span id="totalCount">0</span> Modelle im Besitz
+    <span><span class="dot-owned"></span><span id="ownedCount">0</span> / <span id="totalCount">0</span> im Besitz</span>
+    <span><span class="dot-repair"></span><span id="repairCount">0</span> zur Reparatur</span>
 </div>
 
 <div class="controls">
@@ -58,6 +100,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
         <option value="all">Alle</option>
         <option value="owned">Im Besitz</option>
         <option value="missing">Fehlend</option>
+        <option value="repair">Zur Reparatur</option>
     </select>
 </div>
 </header>
@@ -189,70 +232,107 @@ const db = firebase.database();
 const auth = firebase.auth();
 
 const items = document.querySelectorAll("li[data-id]");
-const ownedEl = document.getElementById("ownedCount");
-const totalEl = document.getElementById("totalCount");
-const search = document.getElementById("search");
-const filter = document.getElementById("filter");
+const ownedEl   = document.getElementById("ownedCount");
+const repairEl  = document.getElementById("repairCount");
+const totalEl   = document.getElementById("totalCount");
+const search    = document.getElementById("search");
+const filter    = document.getElementById("filter");
 const loginForm = document.getElementById("loginForm");
-const loginBtn = document.getElementById("loginBtn");
+const loginBtn  = document.getElementById("loginBtn");
 const emailInput = document.getElementById("email");
-const passInput = document.getElementById("password");
+const passInput  = document.getElementById("password");
 
 totalEl.textContent = items.length;
 
-// Lade alle Daten aus Firebase (für alle sichtbar)
-db.ref("counts").on("value", snapshot => {
-    const data = snapshot.val() || {};
-    items.forEach(item=>{
-        const id = item.dataset.id;
-        let counterSpan = item.querySelector(".counter span");
-        let count = data[id]!==undefined ? data[id] : 0;
-        if(!counterSpan){
-            const counter = document.createElement("div");
-            counter.className="counter";
-            const span = document.createElement("span");
-            span.textContent=count;
-            counter.appendChild(span);
-            item.appendChild(counter);
-        } else {
-            counterSpan.textContent = count;
-        }
-        item.classList.toggle("owned", count>0);
-    });
-    updateStats();
+// Globaler State
+let countsData = {};
+let repairData = {};
+
+// Beide Datenbankknoten beobachten
+db.ref("counts").on("value", snap => {
+    countsData = snap.val() || {};
+    renderAll();
+});
+db.ref("repair").on("value", snap => {
+    repairData = snap.val() || {};
+    renderAll();
 });
 
-// Stats
-function updateStats(){
-    let owned=0;
-    items.forEach(i=>{
-        const counterSpan = i.querySelector(".counter span");
-        if(counterSpan && parseInt(counterSpan.textContent)>0) owned++;
+function renderAll() {
+    items.forEach(item => {
+        const id    = item.dataset.id;
+        const count = countsData[id] !== undefined ? countsData[id] : 0;
+        const needsRepair = !!repairData[id];
+
+        // Konsolenname (erster Textknoten)
+        const nameNode = item.childNodes[0];
+
+        // Counter-Div anlegen falls noch nicht da
+        let counter = item.querySelector(".counter");
+        if (!counter) {
+            counter = document.createElement("div");
+            counter.className = "counter";
+            const span = document.createElement("span");
+            counter.appendChild(span);
+            item.appendChild(counter);
+        }
+
+        // Reparatur-Badge anlegen falls noch nicht da
+        let badge = item.querySelector(".repair-badge");
+        if (!badge) {
+            badge = document.createElement("span");
+            badge.className = "repair-badge";
+            badge.textContent = "✕";
+            // Badge direkt vor den Counter einfügen
+            item.insertBefore(badge, counter);
+        }
+
+        // Zähler aktualisieren
+        item.querySelector(".counter span").textContent = count;
+
+        // Badge sichtbar / unsichtbar
+        badge.style.display = needsRepair ? "inline" : "none";
+
+        // CSS-Klassen
+        item.classList.toggle("owned",  count > 0 && !needsRepair);
+        item.classList.toggle("repair", needsRepair);
     });
-    ownedEl.textContent=owned;
+    updateStats();
+}
+
+function updateStats() {
+    let owned = 0, repair = 0;
+    items.forEach(i => {
+        const count = parseInt(i.querySelector(".counter span")?.textContent || "0");
+        const isRepair = i.classList.contains("repair");
+        if (isRepair) repair++;
+        else if (count > 0) owned++;
+    });
+    ownedEl.textContent  = owned;
+    repairEl.textContent = repair;
 }
 
 // Suche + Filter
-function applyFilters(){
-    const q=search.value.toLowerCase();
-    const f=filter.value;
-    items.forEach(i=>{
-        const text=i.textContent.toLowerCase();
-        const owned=i.classList.contains("owned");
-        let show=text.includes(q);
-        if(f==="owned") show&=owned;
-        if(f==="missing") show&=!owned;
-        i.style.display=show?"flex":"none";
+function applyFilters() {
+    const q = search.value.toLowerCase();
+    const f = filter.value;
+    items.forEach(i => {
+        const text     = i.textContent.toLowerCase();
+        const isOwned  = i.classList.contains("owned");
+        const isRepair = i.classList.contains("repair");
+        let show = text.includes(q);
+        if (f === "owned")   show &= isOwned;
+        if (f === "missing") show &= !isOwned && !isRepair;
+        if (f === "repair")  show &= isRepair;
+        i.style.display = show ? "flex" : "none";
     });
 }
-search.oninput=applyFilters;
-filter.onchange=applyFilters;
+search.oninput   = applyFilters;
+filter.onchange  = applyFilters;
 
 // Admin Login
 loginBtn.onclick = () => {
-    const email = emailInput.value;
-    const pass = passInput.value;
-    auth.signInWithEmailAndPassword(email, pass)
+    auth.signInWithEmailAndPassword(emailInput.value, passInput.value)
     .then(() => {
         alert("Login erfolgreich! Du kannst jetzt Änderungen speichern.");
         loginForm.style.display = "none";
@@ -261,30 +341,57 @@ loginBtn.onclick = () => {
     .catch(err => alert("Fehler: " + err.message));
 };
 
-// Admin darf ändern
-function enableEditing(){
+// Admin-Modus: Bearbeiten aktivieren
+function enableEditing() {
     items.forEach(item => {
         const id = item.dataset.id;
-        let count = parseInt(item.querySelector(".counter span").textContent)||0;
         const counter = item.querySelector(".counter");
-        const minus = document.createElement("button"); minus.textContent="−";
-        const plus = document.createElement("button"); plus.textContent="+";
+
+        // +/- Knöpfe
+        const minus = document.createElement("button"); minus.textContent = "−";
+        const plus  = document.createElement("button"); plus.textContent  = "+";
         counter.insertBefore(minus, counter.firstChild);
         counter.appendChild(plus);
 
-        function update() {
-            item.querySelector(".counter span").textContent=count;
-            item.classList.toggle("owned", count>0);
-            updateStats();
-            db.ref("counts/"+id).set(count);
+        // Reparatur-Knopf (🔧)
+        const repairBtn = document.createElement("button");
+        repairBtn.className = "btn-repair";
+        repairBtn.title = "Zur Reparatur markieren";
+        repairBtn.textContent = "🔧";
+        repairBtn.classList.toggle("active", !!repairData[id]);
+        counter.appendChild(repairBtn);
+
+        function saveCount() {
+            const count = parseInt(item.querySelector(".counter span").textContent) || 0;
+            db.ref("counts/" + id).set(count);
         }
 
-        minus.onclick = ()=>{ if(count>0) count--; update(); };
-        plus.onclick = ()=>{ count++; update(); };
+        minus.onclick = () => {
+            const span = item.querySelector(".counter span");
+            let c = parseInt(span.textContent) || 0;
+            if (c > 0) { c--; span.textContent = c; }
+            item.classList.toggle("owned",  c > 0 && !repairData[id]);
+            updateStats();
+            saveCount();
+        };
+
+        plus.onclick = () => {
+            const span = item.querySelector(".counter span");
+            let c = parseInt(span.textContent) || 0;
+            c++; span.textContent = c;
+            item.classList.toggle("owned",  c > 0 && !repairData[id]);
+            updateStats();
+            saveCount();
+        };
+
+        repairBtn.onclick = () => {
+            const current = !!repairData[id];
+            const next = !current;
+            db.ref("repair/" + id).set(next ? true : null);
+            repairBtn.classList.toggle("active", next);
+        };
     });
 }
 </script>
 </body>
 </html>
-
-
