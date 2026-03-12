@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "counts": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "repair": {
+      ".read": true,
+      ".write": "auth != null"
+    }
+  }
+}
