@@ -81,6 +81,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 #loginForm input { width:200px; text-align:center; }
 #loginForm button { background: var(--accent); border:none; color:#fff; padding:8px 16px; border-radius:10px; cursor:pointer; }
 </style>
+
 </head>
 
 <body>
@@ -107,7 +108,52 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 
 <section class="grid">
 
+<!-- Nintendo Heimkonsolen -->
+
+<div class="card">
+<h2>Nintendo – Heimkonsolen</h2>
+<ul>
+<li data-id="nes">NES</li>
+<li data-id="snes">SNES</li>
+<li data-id="n64">Nintendo 64</li>
+<li data-id="gc">GameCube</li>
+<li data-id="wii">Wii</li>
+<li data-id="wiif">Wii Family Edition</li>
+<li data-id="wiim">Wii Mini</li>
+<li data-id="wiiu">Wii U</li>
+<li data-id="switch">Switch</li>
+<li data-id="switchl">Switch Lite</li>
+<li data-id="switcho">Switch OLED</li>
+<li data-id="switch2">Switch 2</li>
+</ul>
+</div>
+
+<!-- Nintendo Handhelds -->
+
+<div class="card">
+<h2>Nintendo – Handhelds</h2>
+<ul>
+<li data-id="gb">Game Boy</li>
+<li data-id="gbp">Game Boy Pocket</li>
+<li data-id="gbc">Game Boy Color</li>
+<li data-id="gba">Game Boy Advance</li>
+<li data-id="gbasp">GBA SP</li>
+<li data-id="gbamacro">Game Boy Macro</li>
+<li data-id="ds">DS</li>
+<li data-id="dsl">DS Lite</li>
+<li data-id="dsi">DSi</li>
+<li data-id="dsixl">DSi XL</li>
+<li data-id="3ds">3DS</li>
+<li data-id="3dsxl">3DS XL</li>
+<li data-id="2ds">2DS</li>
+<li data-id="n2dsxl">New 2DS XL</li>
+<li data-id="n3ds">New 3DS</li>
+<li data-id="n3dsxl">New 3DS XL</li>
+</ul>
+</div>
+
 <!-- PlayStation Heimkonsolen -->
+
 <div class="card">
 <h2>PlayStation – Heimkonsolen</h2>
 <ul>
@@ -130,6 +176,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 </div>
 
 <!-- PlayStation Handhelds -->
+
 <div class="card">
 <h2>PlayStation – Handhelds</h2>
 <ul>
@@ -145,6 +192,7 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 </div>
 
 <!-- Xbox -->
+
 <div class="card">
 <h2>Xbox</h2>
 <ul>
@@ -160,50 +208,10 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 </ul>
 </div>
 
-<!-- Nintendo Heimkonsolen -->
-<div class="card">
-<h2>Nintendo – Heimkonsolen</h2>
-<ul>
-<li data-id="nes">NES</li>
-<li data-id="snes">SNES</li>
-<li data-id="n64">Nintendo 64</li>
-<li data-id="gc">GameCube</li>
-<li data-id="wii">Wii</li>
-<li data-id="wiif">Wii Family Edition</li>
-<li data-id="wiim">Wii Mini</li>
-<li data-id="wiiu">Wii U</li>
-<li data-id="switch">Switch</li>
-<li data-id="switchl">Switch Lite</li>
-<li data-id="switcho">Switch OLED</li>
-<li data-id="switch2">Switch 2</li>
-</ul>
-</div>
-
-<!-- Nintendo Handhelds -->
-<div class="card">
-<h2>Nintendo – Handhelds</h2>
-<ul>
-<li data-id="gb">Game Boy</li>
-<li data-id="gbp">Game Boy Pocket</li>
-<li data-id="gbc">Game Boy Color</li>
-<li data-id="gba">Game Boy Advance</li>
-<li data-id="gbasp">GBA SP</li>
-<li data-id="ds">DS</li>
-<li data-id="dsl">DS Lite</li>
-<li data-id="dsi">DSi</li>
-<li data-id="dsixl">DSi XL</li>
-<li data-id="3ds">3DS</li>
-<li data-id="3dsxl">3DS XL</li>
-<li data-id="2ds">2DS</li>
-<li data-id="n2dsxl">New 2DS XL</li>
-<li data-id="n3ds">New 3DS</li>
-<li data-id="n3dsxl">New 3DS XL</li>
-</ul>
-</div>
-
 </section>
 
 <!-- Admin Login unten -->
+
 <div id="loginForm">
 <input type="email" id="email" placeholder="E-Mail (Admin)">
 <input type="password" id="password" placeholder="Passwort">
@@ -213,8 +221,11 @@ footer { text-align:center; padding:30px; color:var(--muted);}
 <footer></footer>
 
 <!-- Firebase -->
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
 <script>
@@ -393,5 +404,6 @@ function enableEditing() {
     });
 }
 </script>
+
 </body>
 </html>
