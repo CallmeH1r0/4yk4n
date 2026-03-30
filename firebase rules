@@ -1,12 +1,7 @@
 {
   "rules": {
-    "counts": {
-      ".read": true,
-      ".write": "auth != null"
-    },
-    "repair": {
-      ".read": true,
-      ".write": "auth != null"
-    }
+    "counts":       { ".read": true, ".write": "auth != null" },
+    "repair":       { ".read": true, ".write": "auth != null" },
+    "marketPrices": { ".read": true, ".write": true }
   }
 }
