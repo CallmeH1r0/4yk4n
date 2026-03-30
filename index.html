@@ -260,6 +260,20 @@ let countsData = {};
 let repairData = {};
 
 // Beide Datenbankknoten beobachten
+db.ref("marketPrices").on("value", snap => {
+    const prices = snap.val() || {};
+    document.querySelectorAll("li[data-id]").forEach(item => {
+        const price = prices[item.dataset.id];
+        let badge = item.querySelector(".market-price");
+        if (!badge) {
+            badge = document.createElement("span");
+            badge.className = "market-price";
+            badge.style.cssText = "font-size:0.75rem;color:#9aa0b3;margin-left:6px;";
+            item.querySelector(".counter").before(badge);
+        }
+        badge.textContent = price ? price + " €" : "";
+    });
+});
 db.ref("counts").on("value", snap => {
     countsData = snap.val() || {};
     renderAll();
